@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="Description" content="Enter your description here" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <title>ToDoApp</title>
+  </head>
+  <body>
+    <div style="margin-top: 80px" class="container">
+      <h3>ToDoList</h3>
+      <hr />
+
+      <form action="/add" method="post">
+        <div class="form-group">
+          <label for="usr">ToDo Başlık</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="usr"
+            placeholder="Todo Giriniz ..."
+          /><br />
+          <button type="submit" class="btn btn-danger">Ekle</button>
+          <hr />
+        </div>
+      </form>
+
+      {% if todolar == [] %}
+        <div class="alert alert-danger" role="alert">
+        Kayıtlı ToDoList Bulunamadı
+        </div>
+      
+      {% else %}
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Başlık</th>
+            <th scope="col">ToDo Durum</th>
+            <th scope="col">Durum Güncelle</th>
+            <th scope="col">ToDo Sil</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in todolar %}
+          <tr>
+            <th scope="row">{{todo.id}}</th>
+            <td>{{todo.title}}</td>
+            {% if todo.complete == False %}
+            <td>Tamamlanmadı</td>
+            {% else %}
+            <td>Tamamlandı</td>
+            {% endif %}
+            
+            <td><a href="/complete/{{todo.id}}" class="btn btn-primary">Güncelle</td>
+            <td><a href="/delete/{{todo.id}}" class="btn btn-danger">Sil</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {% endif %}
+
+      
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
